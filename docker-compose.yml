@@ -1,0 +1,39 @@
+version: '3.8'
+services:
+  express-server:
+    image: node:16 
+    container_name: express-server
+    working_dir: /usr/src/app
+    volumes:
+      - .:/usr/src/app 
+    ports:
+      - "3000:3000"
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+    command: "npm start" 
+    depends_on:
+      - postgres 
+
+  # PostgreSQL database
+  postgres:
+    image: postgres:13 
+    container_name: postgres
+    environment:
+      - POSTGRES_DB=your_db_name
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres_password
+    ports:
+      - "5432:5432" 
+    volumes:
+      - postgres-data:/var/lib/postgresql/data 
+
+volumes:
+  postgres-data:
+    driver: local
