@@ -12,6 +12,9 @@ jobs:
           name: Install Dependencies
           command: npm install  
       - run:
+          name: Fix Permissions for Mocha
+          command: chmod +x node_modules/.bin/mocha
+      - run:
           name: Run Tests
           command: npm test  
       - run:
