@@ -27,7 +27,6 @@
 #     jobs:
 #       - build_and_test 
 
-
 version: 2.1
 jobs:
   build_and_test:
@@ -57,7 +56,7 @@ jobs:
           name: Upload Coverage to Coveralls
           command: |
             chmod +x ./node_modules/.bin/coveralls
-            npx coveralls < coverage/lcov.info
+            npx coveralls
 
 workflows:
   version: 2
