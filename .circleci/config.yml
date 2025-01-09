@@ -71,17 +71,14 @@ jobs:
     steps:
       - checkout 
       - run:
-          name: Install Global Dependencies
-          command: npm install -g coveralls
-      - run:
-          name: 'Say Hello'
-          command: echo "Hello, World!" 
-      - run:
-          name: Install Project Dependencies
+          name: Install Dependencies
           command: npm install
       - run:
+          name: Fix Permissions for Mocha
+          command: chmod +x ./node_modules/.bin/mocha
+      - run:
           name: Run Tests
-          command: npm test
+          command: npx mocha --recursive --experimental-specifier-resolution=node
       - run:
           name: Generate Coverage Report
           command: npm run coverage
@@ -102,4 +99,3 @@ workflows:
   build:
     jobs:
       - build_and_test
-
