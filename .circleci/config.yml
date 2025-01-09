@@ -71,13 +71,14 @@ jobs:
     steps:
       - checkout 
       - run:
-          name: Install Mocha
-          command: npm install -g mocha
+          name: Install Global Dependencies
+          command: |
+            npm install -g mocha coveralls
       - run:
-          name: 'Say hello'
-          command: 'echo Hello, World!' 
+          name: 'Say Hello'
+          command: echo "Hello, World!" 
       - run:
-          name: Install Dependencies
+          name: Install Project Dependencies
           command: npm install  
       - run:
           name: Fix Permissions for Mocha
@@ -86,16 +87,19 @@ jobs:
           name: Run Tests
           command: npm test  
       - run:
-          name: Build app
+          name: Build App
           command: npm run build  
       - run:
           name: Generate Coverage Report
           command: mocha --recursive --reporter lcov --reporter-options "file=./coverage/lcov.info"
       - run:
+          name: Check Coverage Files
+          command: ls -la ./coverage
+      - run:
           name: Upload Coverage to Coveralls
           command: |
             chmod +x ./node_modules/.bin/coveralls
-            npx coveralls < coverage/lcov.info
+            npx coveralls < ./coverage/lcov.info
 
 workflows:
   version: 2
