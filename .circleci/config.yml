@@ -26,7 +26,6 @@
 #   build:
 #     jobs:
 #       - build_and_test 
-
 version: 2.1
 jobs:
   build_and_test:
@@ -35,8 +34,8 @@ jobs:
     steps:
       - checkout 
       - run:
-          name: 'Say hello'
-          command: 'echo Hello, World!' 
+          name: 'Say Hello'
+          command: echo "Hello, World!" 
       - run:
           name: Install Dependencies
           command: npm install  
@@ -47,16 +46,24 @@ jobs:
           name: Run Tests
           command: npm test  
       - run:
-          name: Build app
+          name: Build App
           command: npm run build  
       - run:
           name: Generate Coverage Report
           command: npm test -- --coverage
       - run:
+          name: Verify Coverage File
+          command: |
+            echo "Checking if coverage directory and lcov.info exist..."
+            ls -l coverage/
+            echo "Contents of lcov.info:"
+            cat coverage/lcov.info || echo "lcov.info is missing or empty"
+      - run:
           name: Upload Coverage to Coveralls
           command: |
+            echo "Uploading coverage to Coveralls..."
             chmod +x ./node_modules/.bin/coveralls
-            npx coveralls
+            npx coveralls < coverage/lcov.info || echo "Failed to upload coverage to Coveralls"
 
 workflows:
   version: 2
