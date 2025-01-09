@@ -8,7 +8,7 @@
     "start": "node src/server.js",
     "dev": "nodemon src/server.js",
     "test": "mocha --recursive --experimental-specifier-resolution=node",
-    "coverage:report": "npx coveralls < coverage/lcov.info",
+    "coverage": "nyc mocha --recursive",
     "build": "echo 'No build step required'",
     "lint": "eslint ."
   },
