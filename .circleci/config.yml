@@ -74,8 +74,10 @@ jobs:
           name: Install Dependencies
           command: npm install
       - run:
-          name: Fix Permissions for Mocha
-          command: chmod +x ./node_modules/.bin/mocha
+          name: Fix Permissions for Mocha and NYC
+          command: |
+            chmod +x ./node_modules/.bin/mocha
+            chmod +x ./node_modules/.bin/nyc
       - run:
           name: Run Tests
           command: npx mocha --recursive --experimental-specifier-resolution=node
