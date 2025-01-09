@@ -63,7 +63,6 @@
 #   build:
 #     jobs:
 #       - build_and_test
-
 version: 2.1
 jobs:
   build_and_test:
@@ -71,6 +70,9 @@ jobs:
       - image: node:16  
     steps:
       - checkout 
+      - run:
+          name: Install Mocha
+          command: npm install -g mocha
       - run:
           name: 'Say hello'
           command: 'echo Hello, World!' 
