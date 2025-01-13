@@ -10,7 +10,7 @@
     "username": "postgres",
     "password": "naome123",
     "database": "barefoot_nomad",
-    "host": "localhost",
+    "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "production": {
