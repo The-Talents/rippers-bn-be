@@ -1,23 +1,24 @@
+
 {
   "development": {
     "username": "postgres",
     "password": "naome123",
     "database": "barefoot_nomad",
-    "host": "127.0.0.1",
+    "host": "localhost",
     "dialect": "postgres"
   },
   "test": {
     "username": "postgres",
     "password": "naome123",
     "database": "barefoot_nomad",
-    "host": "127.0.0.1",
+    "host": "localhost",
     "dialect": "postgres"
   },
   "production": {
     "username": "postgres",
     "password": "naome123",
     "database": "barefoot_nomad",
-    "host": "127.0.0.1",
+    "host": "localhost",
     "dialect": "postgres"
   }
 }
