@@ -1,24 +1,24 @@
 
 {
   "development": {
-    "username": "postgres",
-    "password": "naome123",
-    "database": "barefoot_nomad",
-    "host": "localhost",
+    "username": "${DB_USER}",
+    "password": "${DB_PASSWORD}",
+    "database": "${POSTGRES_DB}",
+    "host": "${DB_HOST}",
     "dialect": "postgres"
   },
   "test": {
-    "username": "postgres",
-    "password": "naome123",
-    "database": "barefoot_nomad",
-    "host": "localhost",
+    "username": "${DB_USER}",
+    "password": "${DB_PASSWORD}",
+    "database": "${POSTGRES_DB}",
+    "host": "${DB_HOST}",
     "dialect": "postgres"
   },
   "production": {
-    "username": "postgres",
-    "password": "naome123",
-    "database": "barefoot_nomad",
-    "host": "localhost",
+    "username": "${DB_USER}",
+    "password": "${DB_PASSWORD}",
+    "database": "${POSTGRES_DB}",
+    "host": "${DB_HOST}",
     "dialect": "postgres"
   }
 }
