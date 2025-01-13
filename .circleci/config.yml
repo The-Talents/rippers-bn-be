@@ -46,7 +46,7 @@ jobs:
           command: chmod +x node_modules/.bin/mocha
       - run:
           name: Run Tests
-          command: mocha --require @babel/register --recursive 
+          command: npm test
       - run:
           name: Build app
           command: npm run build  
