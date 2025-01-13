@@ -28,19 +28,85 @@
 #       - build_and_test 
 
 
+# version: 2.1
+# jobs:
+#   build_and_test:
+#     docker:
+#       - image: node:16  
+#     steps:
+#       - checkout 
+#       - run:
+#           name: 'Say hello'
+#           command: 'echo Hello, World!' 
+#       - run:
+#           name: Install Dependencies
+#           command: npm install  
+#       - run:
+#           name: Fix Permissions for Mocha
+#           command: chmod +x node_modules/.bin/mocha
+#       - run:
+#           name: Fix Permissions for NYC
+#           command: chmod +x ./node_modules/.bin/nyc
+#       - run:
+#           name: Run Tests
+#           command: npm test  
+#       - run:
+#           name: Build app
+#           command: npm run build  
+#       - run:
+#           name: Generate Coverage Report
+#           command: npm test -- --coverage
+#       - run:
+#           name: Upload Coverage to Coveralls
+#           command: |
+#             chmod +x ./node_modules/.bin/coveralls
+#             npx coveralls
+
+# workflows:
+#   version: 2
+#   build:
+#     jobs:
+#       - build_and_test
+
 version: 2.1
 jobs:
   build_and_test:
     docker:
-      - image: node:16  
+      - image: cimg/node:16
+      - image: cimg/postgres:14
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: naome123
+          POSTGRES_DB: barefoot_nomad
+          POSTGRES_HOST: localhost
     steps:
-      - checkout 
+      - checkout
+      - run:
+          name: Install PostgreSQL client
+          command: |
+            sudo apt-get update
+            sudo apt-get install postgresql-client
+      - run:
+          name: Wait for PostgreSQL
+          command: |
+            for i in `seq 1 10`;
+            do
+              nc -z localhost 5432 && echo Success && exit 0
+              echo -n .
+              sleep 1
+            done
+            echo Failed waiting for PostgreSQL && exit 1
+      - run:
+          name: Setup Database
+          command: |
+            psql -h localhost -U postgres -c "CREATE DATABASE barefoot_nomad;"
+            psql -h localhost -U postgres -c "ALTER USER postgres WITH PASSWORD 'naome123';"
       - run:
           name: 'Say hello'
-          command: 'echo Hello, World!' 
+          command: 'echo Hello, World!'
       - run:
           name: Install Dependencies
-          command: npm install  
+          command: npm install
       - run:
           name: Fix Permissions for Mocha
           command: chmod +x node_modules/.bin/mocha
@@ -49,10 +115,10 @@ jobs:
           command: chmod +x ./node_modules/.bin/nyc
       - run:
           name: Run Tests
-          command: npm test  
+          command: npm test
       - run:
           name: Build app
-          command: npm run build  
+          command: npm run build
       - run:
           name: Generate Coverage Report
           command: npm test -- --coverage
