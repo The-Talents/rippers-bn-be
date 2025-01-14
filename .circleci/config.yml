@@ -32,12 +32,8 @@ jobs:
   build_and_test:
     docker:
       - image: circleci/node:16
-      - image: postgres:13
     steps:
       - checkout 
-      - run:
-          name: Start PostgreSQL
-          command: docker-compose up -d postgres
       - run:
           name: Install Dependencies
           command: npm install  
@@ -61,9 +57,6 @@ jobs:
           command: |
             chmod +x ./node_modules/.bin/coveralls
             npx coveralls
-      - run:
-          name: Stop PostgreSQL
-          command: docker-compose down
 
 workflows:
   version: 2
