@@ -26,32 +26,43 @@
 #   build:
 #     jobs:
 #       - build_and_test 
+
 version: 2.1
 jobs:
   build_and_test:
     docker:
       - image: circleci/node:16
+      - image: postgres:13
     steps:
-      - checkout
+      - checkout 
       - run:
-          name: Start Docker Compose Services
-          command: docker-compose up
-      - run:
-          name: Wait for PostgreSQL to Start
-          command: |
-            until docker exec postgres pg_isready -U $POSTGRES_USER; do
-              echo "Waiting for PostgreSQL to start...";
-              sleep 5;
-            done;
-            echo "PostgreSQL is ready!";
+          name: Start PostgreSQL
+          command: docker-compose up -d postgres
       - run:
           name: Install Dependencies
-          command: npm install
+          command: npm install  
+      - run:
+          name: Fix Permissions for Mocha
+          command: chmod +x node_modules/.bin/mocha
+      - run:
+          name: Fix Permissions for NYC
+          command: chmod +x ./node_modules/.bin/nyc
       - run:
           name: Run Tests
-          command: npm test
+          command: npm test  
       - run:
-          name: Stop Docker Compose Services
+          name: Build app
+          command: npm run build  
+      - run:
+          name: Generate Coverage Report
+          command: npm test -- --coverage
+      - run:
+          name: Upload Coverage to Coveralls
+          command: |
+            chmod +x ./node_modules/.bin/coveralls
+            npx coveralls
+      - run:
+          name: Stop PostgreSQL
           command: docker-compose down
 
 workflows:
