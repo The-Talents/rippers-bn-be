@@ -70,7 +70,7 @@ jobs:
       - image: circleci/node:16
       - image: circleci/postgres:13
         environment:
-          POSTGRES_DB: ${POSTGRES_DB}
+          POSTGRES_DB: barefoot_nomad
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     steps:
