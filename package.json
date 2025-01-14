@@ -7,8 +7,8 @@
   "scripts": {
     "start": "node src/server.js",
     "dev": "nodemon src/server.js",
-    "test": "mocha --recursive --experimental-specifier-resolution=node",
-    "test:coverage": "nyc mocha --recursive --experimental-specifier-resolution=node",
+    "test": "nyc --reporter=text --reporter=lcov mocha --require @babel/register --recursive",
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
     "build": "echo 'No build step required'",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
@@ -31,8 +31,9 @@
     "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
-    "chai": "^5.1.2",
-    "chai-http": "^5.1.1",
+    "@babel/register": "^7.25.9",
+    "chai": "^4.3.5",
+    "chai-http": "4.3.0",
     "eslint": "^8.53.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.27.5",

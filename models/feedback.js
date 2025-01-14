@@ -10,7 +10,12 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      // Define association here
+      Feedback.belongsTo(models.User, {
+        foreignKey: 'userId',
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
+      });
     }
   }
   Feedback.init({
@@ -23,11 +28,7 @@ module.exports = (sequelize, DataTypes) => {
     modelName: 'Feedback',
   });
 
-  Feedback.belongsTo(models.User, {
-    foreignKey: 'userId',
-    onDelete: 'CASCADE',
-    onUpdate: 'CASCADE',
-  });
+  
 
   return Feedback;
 };
