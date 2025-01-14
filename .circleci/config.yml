@@ -1,31 +1,3 @@
-# version: 2.1
-# jobs:
-#   build_and_test:
-#     docker:
-#       - image: node:16  
-#     steps:
-#       - checkout 
-#       - run:
-#           name: 'Say hello'
-#           command: 'echo Hello, World!' 
-#       - run:
-#           name: Install Dependencies
-#           command: npm install  
-#       - run:
-#           name: Fix Permissions for Mocha
-#           command: chmod +x node_modules/.bin/mocha
-#       - run:
-#           name: Run Tests
-#           command: npm test  
-#       - run:
-#           name: Build app
-#           command: npm run build  
-
-# workflows:
-#   version: 2
-#   build:
-#     jobs:
-#       - build_and_test 
 
 # version: 2.1
 # jobs:
