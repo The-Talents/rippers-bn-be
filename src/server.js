@@ -4,6 +4,7 @@ const bodyParser = require('body-parser'); // Import body-parser for JSON parsin
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('../swagger.json'); // Assuming your swagger.json is located at this path
 const userRoutes = require('./routes/userRoutes'); // Import user routes
+const authRoutes = require('./routes/authRoutes');
 
 // Load environment variables from .env file
 dotenv.config();
@@ -14,8 +15,12 @@ const PORT = process.env.PORT || 3000;
 // Middleware to parse JSON
 app.use(bodyParser.json());
 
+
+
 // Set up user routes
 app.use('/api/users', userRoutes); // Register the user routes
+app.use('/api/v1', authRoutes);
+
 
 // Swagger API documentation route
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));

@@ -1,7 +1,7 @@
 const Joi = require('joi');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const { User } = require('../models');
+const { User } = require('../../models');
 
 const userValidationSchema = Joi.object({
   email: Joi.string().email().required().messages({
