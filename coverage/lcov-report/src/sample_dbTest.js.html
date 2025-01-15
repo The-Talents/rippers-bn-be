@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">61.9% </span>
+                <span class="strong">38.09% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>13/21</span>
+                <span class='fraction'>8/21</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">77.77% </span>
+                <span class="strong">11.11% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>7/9</span>
+                <span class='fraction'>1/9</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/2</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">61.9% </span>
+                <span class="strong">38.09% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>13/21</span>
+                <span class='fraction'>8/21</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -134,16 +134,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -158,7 +158,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -166,7 +166,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">const express = require('express');
-const db = require('../models/index.js'); // Adjust to your Sequelize models path
+const db = require('../models/index.js'); 
 &nbsp;
 const app = express();
 const PORT = process.env.PORT || <span class="branch-1 cbranch-no" title="branch not covered" >3000;</span>
@@ -183,18 +183,18 @@ app.get('/test-db', <span class="fstat-no" title="function not covered" >async (
 });
 &nbsp;
 &nbsp;
-// Route to create a new user
-app.post('/create-user', async (req, res) =&gt; {
-  try {
-    const { firstName, lastName, email, preferredLanguage, preferredCurrency, whereYouLive, role, department, lineManager, gender, telephoneNumber } = req.body;
 &nbsp;
-    // Validate required fields
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (!firstName || !lastName || !email  || !gender || !telephoneNumber) {
+app.post('/create-user', <span class="fstat-no" title="function not covered" >async (r</span>eq, res) =&gt; {
+<span class="cstat-no" title="statement not covered" >  try {</span>
+    const { firstName, lastName, email, preferredLanguage, preferredCurrency, whereYouLive, role, department, lineManager, gender, telephoneNumber } = <span class="cstat-no" title="statement not covered" >req.body;</span>
+&nbsp;
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    if (!firstName || !lastName || !email  || !gender || !telephoneNumber) {</span>
 <span class="cstat-no" title="statement not covered" >      return res.status(500).json({ message: 'Missing required fields!' });</span>
     }
 &nbsp;
-    // Create new user
-    const user = await db.User.create({
+  
+    const user = <span class="cstat-no" title="statement not covered" >await db.User.create({</span>
       firstName,
       lastName,
       email,
@@ -209,7 +209,7 @@ app.post('/create-user', async (req, res) =&gt; {
       telephoneNumber
     });
 &nbsp;
-    res.status(201).json({ message: 'User created successfully!', user });
+<span class="cstat-no" title="statement not covered" >    res.status(201).json({ message: 'User created successfully!', user });</span>
   } catch (error) {
 <span class="cstat-no" title="statement not covered" >    console.error('User creation failed:', error);</span>
 <span class="cstat-no" title="statement not covered" >    res.status(500).json({ message: 'User creation failed!', error: error.message });</span>
@@ -223,7 +223,7 @@ module.exports = { app, db };</pre></td></tr></table></pre>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-01-14T09:33:25.244Z
+                at 2025-01-15T10:04:41.608Z
             </div>
         <script src="../prettify.js"></script>
         <script>

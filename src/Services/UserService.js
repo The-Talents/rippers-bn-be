@@ -53,7 +53,7 @@ const loginUser = async (email, password) => {
     return { success: false, message: 'Invalid credentials' };
   }
 
-  console.log('User Data:', user); 
+  console.log('User Data:', user.password); 
 
  
   const isPasswordValid = await bcrypt.compare(password, user.password);
