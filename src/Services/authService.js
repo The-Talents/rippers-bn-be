@@ -14,23 +14,19 @@ const googleLogin = async (token) => {
 
     const payload = ticket.getPayload();
     const email = payload.email; // Use email to check if the user exists
-    const firstName = payload.given_name;
-    const lastName = payload.family_name;
-    const profilePicture = payload.picture;
+    // const firstName = payload.given_name;
+    // const lastName = payload.family_name;
+    // const profilePicture = payload.picture;
 
     // Check if the user exists in the database using email
     let user = await User.findOne({ where: { email } });
 
     // If the user does not exist, create a new user
     if (!user) {
-      user = await User.create({
-        firstName,
-        lastName,
-        email,
-        profilePicture,
-        // Add other default fields if needed
-      });
-    }
+        const error = new Error('Account does not exist. Please create an account first.');
+        error.statusCode = 404;
+        throw error;
+      }
 
     // Generate JWT token
     const authToken = jwt.sign({ userId: user.id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1h' });
