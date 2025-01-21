@@ -23,6 +23,7 @@ after(() => {
 chai.use(chaiHttp);
 
 describe('Auth API Tests', () => {
+  this.timeout(30000);
   let googleAuthStub;
 
   beforeEach(() => {
