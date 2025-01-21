@@ -8,14 +8,15 @@ jobs:
           POSTGRES_DB: barefoot_nomad
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-          CIRCLE_TEST_TIMEOUT_SECONDS: 300
+    environment:
+      CIRCLE_TEST_TIMEOUT_SECONDS: 300
     steps:
       - checkout 
       - run:
           name: Install Dependencies
           command: |
             npm install
-            npm install coveralls --save-dev  # Add this line to install coveralls
+            npm install coveralls --save-dev
       - run:
           name: Fix Permissions for Mocha
           command: chmod +x node_modules/.bin/mocha
@@ -34,7 +35,7 @@ jobs:
       - run:
           name: Upload Coverage to Coveralls
           command: |
-            npm install coveralls --save-dev  # Install coveralls if not already installed
+            npm install coveralls --save-dev
             cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
 
 workflows:
