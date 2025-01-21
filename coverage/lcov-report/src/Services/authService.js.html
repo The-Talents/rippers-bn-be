@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">30% </span>
+                <span class="strong">31.57% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>6/20</span>
+                <span class='fraction'>6/19</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">30% </span>
+                <span class="strong">31.57% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>6/20</span>
+                <span class='fraction'>6/19</span>
             </div>
         
             
@@ -110,11 +110,7 @@
 <a name='L45'></a><a href='#L45'>45</a>
 <a name='L46'></a><a href='#L46'>46</a>
 <a name='L47'></a><a href='#L47'>47</a>
-<a name='L48'></a><a href='#L48'>48</a>
-<a name='L49'></a><a href='#L49'>49</a>
-<a name='L50'></a><a href='#L50'>50</a>
-<a name='L51'></a><a href='#L51'>51</a>
-<a name='L52'></a><a href='#L52'>52</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L48'></a><a href='#L48'>48</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -130,22 +126,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -181,23 +173,19 @@ const googleLogin = <span class="fstat-no" title="function not covered" >async (
 &nbsp;
     const payload = <span class="cstat-no" title="statement not covered" >ticket.getPayload();</span>
     const email = <span class="cstat-no" title="statement not covered" >payload.email;</span> // Use email to check if the user exists
-    const firstName = <span class="cstat-no" title="statement not covered" >payload.given_name;</span>
-    const lastName = <span class="cstat-no" title="statement not covered" >payload.family_name;</span>
-    const profilePicture = <span class="cstat-no" title="statement not covered" >payload.picture;</span>
+    // const firstName = payload.given_name;
+    // const lastName = payload.family_name;
+    // const profilePicture = payload.picture;
 &nbsp;
     // Check if the user exists in the database using email
     let user = <span class="cstat-no" title="statement not covered" >await User.findOne({ where: { email } });</span>
 &nbsp;
     // If the user does not exist, create a new user
 <span class="cstat-no" title="statement not covered" >    if (!user) {</span>
-<span class="cstat-no" title="statement not covered" >      user = await User.create({</span>
-        firstName,
-        lastName,
-        email,
-        profilePicture,
-        // Add other default fields if needed
-      });
-    }
+        const error = <span class="cstat-no" title="statement not covered" >new Error('Account does not exist. Please create an account first.');</span>
+<span class="cstat-no" title="statement not covered" >        error.statusCode = 404;</span>
+<span class="cstat-no" title="statement not covered" >        throw error;</span>
+      }
 &nbsp;
     // Generate JWT token
     const authToken = <span class="cstat-no" title="statement not covered" >jwt.sign({ userId: user.id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1h' });</span>
@@ -223,7 +211,7 @@ module.exports = { googleLogin };</pre></td></tr></table></pre>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-01-15T11:00:59.062Z
+                at 2025-01-21T08:32:18.237Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

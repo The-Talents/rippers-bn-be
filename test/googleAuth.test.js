@@ -6,24 +6,14 @@ const app = require('../src/server');
 const { User } = require('../models');
 const expect = chai.expect;
 
-// Suppress error logging during tests
-const originalConsoleError = console.error;
-const originalProcessStderr = process.stderr.write;
-
-before(() => {
-  console.error = () => {};
-  process.stderr.write = () => {};
-});
-
-after(() => {
-  console.error = originalConsoleError;
-  process.stderr.write = originalProcessStderr;
-});
-
 chai.use(chaiHttp);
 
 describe('Auth API Tests', () => {
-  this.timeout(30000);
+  // Suppress error logging
+  before(() => {
+    console.error = () => {};
+  });
+
   let googleAuthStub;
 
   beforeEach(() => {
@@ -31,7 +21,7 @@ describe('Auth API Tests', () => {
       googleAuthStub.restore();
     }
   });
-  
+
   describe('GET /api/v1/auth/google-login', () => {
     it('should return 400 if no token is provided', (done) => {
       chai
@@ -78,7 +68,6 @@ describe('Auth API Tests', () => {
           expect(res.body.status).to.equal(200);
           expect(res.body.message).to.equal('Login successful');
           expect(res.body.data).to.have.property('token');
-          
           userFindStub.restore();
           done();
         });
@@ -107,7 +96,6 @@ describe('Auth API Tests', () => {
           expect(res.body).to.be.an('object');
           expect(res.body.status).to.equal(404);
           expect(res.body.message).to.equal('Account does not exist. Please create an account first.');
-          
           userFindStub.restore();
           done();
         });
@@ -135,5 +123,9 @@ describe('Auth API Tests', () => {
   afterEach(() => {
     sinon.restore();
   });
-});
 
+  // Restore error logging
+  after(() => {
+    console.error = console.error;
+  });
+});
