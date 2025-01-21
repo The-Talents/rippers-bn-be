@@ -1,19 +1,15 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-const app = require('../src/server'); // adjust path if needed
+const app = require('../src/server'); 
 const { expect } = chai;
 
 chai.use(chaiHttp);
 describe('Login API Tests', () => {
-
-  
-
-    // Test successful user registration
     it('should create a new user successfully', (done) => {
       const newUser = {
         firstName: 'keza',
-        lastName: 'Doe',
-        email: 'johndoe4@example.com',
+        lastName: 'kiriku',
+        email: 'tttt2@example.com',
         birthOfDate: new Date('1990-01-01T00:00:00.000Z'), // Assuming birthOfDate is a date
         preferredLanguage: 'English',
         preferredCurrency: 'USD',
@@ -23,7 +19,7 @@ describe('Login API Tests', () => {
         lineManager: 'Jane Smith',
         gender: 'Male',
         telephoneNumber: '1234567890',
-        password: 'SecurePassword123' // Password field
+        password: 'Password123' // Password field
       };
   
       chai
@@ -44,12 +40,12 @@ describe('Login API Tests', () => {
     });
   
     // Additional test cases can be added here...
-  });
+
 
     it('should log in successfully with valid credentials', (done) => {
       const validUser = {
-        email: 'lizza@example.com',
-        password: 'SecurePassword123'
+        email: 'tttt2@example.com',
+        password: 'Password123'
       };
   
       chai
@@ -85,4 +81,5 @@ describe('Login API Tests', () => {
       });
     
 
-  
+    });
+    

@@ -7,6 +7,7 @@
   "scripts": {
     "start": "node src/server.js",
     "dev": "nodemon src/server.js",
+    "migrate": "sequelize db:migrate",
     "test": "nyc --reporter=text --reporter=lcov mocha --require @babel/register --recursive",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "build": "echo 'No build step required'",
