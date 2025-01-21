@@ -35,4 +35,10 @@ jobs:
           command: |
             npm install coveralls --save-dev
             cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
-    timeout: 30  
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - build_and_test:
+          timeout: 30
