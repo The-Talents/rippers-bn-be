@@ -1,40 +1,3 @@
-
-# version: 2.1
-# jobs:
-#   build_and_test:
-#     docker:
-#       - image: circleci/node:16
-#     steps:
-#       - checkout 
-#       - run:
-#           name: Install Dependencies
-#           command: npm install  
-#       - run:
-#           name: Fix Permissions for Mocha
-#           command: chmod +x node_modules/.bin/mocha
-#       - run:
-#           name: Fix Permissions for NYC
-#           command: chmod +x ./node_modules/.bin/nyc
-#       - run:
-#           name: Run Tests
-#           command: npm test  
-#       - run:
-#           name: Build app
-#           command: npm run build  
-#       - run:
-#           name: Generate Coverage Report
-#           command: npm test -- --coverage
-#       - run:
-#           name: Upload Coverage to Coveralls
-#           command: |
-#             chmod +x ./node_modules/.bin/coveralls
-#             npx coveralls
-
-# workflows:
-#   version: 2
-#   build:
-#     jobs:
-#       - build_and_test
 version: 2.1
 jobs:
   build_and_test:
@@ -45,13 +8,15 @@ jobs:
           POSTGRES_DB: barefoot_nomad
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    environment:
+      CIRCLE_TEST_TIMEOUT_SECONDS: 300 
     steps:
       - checkout 
       - run:
           name: Install Dependencies
           command: |
             npm install
-            npm install coveralls --save-dev  # Add this line to install coveralls
+            npm install coveralls --save-dev
       - run:
           name: Fix Permissions for Mocha
           command: chmod +x node_modules/.bin/mocha
@@ -70,7 +35,7 @@ jobs:
       - run:
           name: Upload Coverage to Coveralls
           command: |
-            npm install coveralls --save-dev  # Install coveralls if not already installed
+            npm install coveralls --save-dev
             cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
 
 workflows:

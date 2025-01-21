@@ -1,24 +1,105 @@
 {
-    "swagger": "2.0",
-    "info": {
-      "version": "1.0.0",
-      "title": "API Documentation",
-      "description": "A simple API documentation"
-    },
-    "host": "localhost:3000",
-    "basePath": "/api",
-    "schemes": ["http"],
-    "paths": {
-      "/users": {
-        "get": {
-          "summary": "Retrieve all users",
-          "responses": {
-            "200": {
-              "description": "List of users"
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Barefoot Nomad API",
+    "description": "API documentation for Barefoot Nomad"
+  },
+  "host": "localhost:3000",
+  "basePath": "/api",
+  "schemes": ["http"],
+  "paths": {
+    "/v1/auth/google-login": {
+      "get": {
+        "summary": "Login with Google",
+        "description": "Authenticate a user using Google OAuth.",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "Google OAuth token."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Login successful.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 200
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Login successful"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "userId": {
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "email": {
+                      "type": "string",
+                      "example": "test@example.com"
+                    },
+                    "token": {
+                      "type": "string",
+                      "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                    }
+                  }
+                }
+              }
             }
+          },
+          "400": {
+            "description": "Invalid token or missing token.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 400
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Invalid token"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User does not exist.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 404
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Account does not exist. Please create an account first."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "summary": "Retrieve all users",
+        "responses": {
+          "200": {
+            "description": "List of users"
           }
         }
       }
     }
   }
-  
+}
