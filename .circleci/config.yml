@@ -8,8 +8,6 @@ jobs:
           POSTGRES_DB: barefoot_nomad
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-    environment:
-      CIRCLE_TEST_TIMEOUT_SECONDS: 300
     steps:
       - checkout 
       - run:
