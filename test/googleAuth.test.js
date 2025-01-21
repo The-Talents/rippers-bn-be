@@ -1,4 +1,3 @@
-
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const sinon = require('sinon');
@@ -7,17 +6,31 @@ const app = require('../src/server');
 const { User } = require('../models');
 const expect = chai.expect;
 
+// Suppress error logging during tests
+const originalConsoleError = console.error;
+const originalProcessStderr = process.stderr.write;
+
+before(() => {
+  console.error = () => {};
+  process.stderr.write = () => {};
+});
+
+after(() => {
+  console.error = originalConsoleError;
+  process.stderr.write = originalProcessStderr;
+});
+
 chai.use(chaiHttp);
 
 describe('Auth API Tests', () => {
   let googleAuthStub;
-  
+
   beforeEach(() => {
     if (googleAuthStub) {
       googleAuthStub.restore();
     }
   });
-
+  
   describe('GET /api/v1/auth/google-login', () => {
     it('should return 400 if no token is provided', (done) => {
       chai
