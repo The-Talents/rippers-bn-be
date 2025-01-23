@@ -1,24 +1,127 @@
 {
-    "swagger": "2.0",
-    "info": {
-      "version": "1.0.0",
-      "title": "API Documentation",
-      "description": "A simple API documentation"
-    },
-    "host": "localhost:3000",
-    "basePath": "/api",
-    "schemes": ["http"],
-    "paths": {
-      "/users": {
-        "get": {
-          "summary": "Retrieve all users",
-          "responses": {
-            "200": {
-              "description": "List of users"
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "API Documentation",
+    "description": "Documentation for the Register API"
+  },
+  "host": "localhost:3000",
+  "basePath": "/api/v1",
+  "schemes": ["http"],
+  "paths": {
+    "/auth/register": {
+      "post": {
+        "summary": "Register a new user",
+        "description": "This endpoint registers a new user by creating a new account and returning a token along with the user details.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "description": "User registration details",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "firstName": {
+                  "type": "string",
+                  "example": "manisshimwe"
+                },
+                "lastName": {
+                  "type": "string",
+                  "example": "eric"
+                },
+                "email": {
+                  "type": "string",
+                  "format": "email",
+                  "example": "eric@example.com"
+                },
+                "birthOfDate": {
+                  "type": "string",
+                  "format": "date",
+                  "example": "1990-01-01"
+                },
+                "preferredLanguage": {
+                  "type": "string",
+                  "example": "English"
+                },
+                "preferredCurrency": {
+                  "type": "string",
+                  "example": "USD"
+                },
+                "whereYouLive": {
+                  "type": "string",
+                  "example": "Kigali, Rwanda"
+                },
+                "role": {
+                  "type": "string",
+                  "example": "Developer"
+                },
+                "department": {
+                  "type": "string",
+                  "example": "IT"
+                },
+                "lineManager": {
+                  "type": "string",
+                  "example": "Jane Smith"
+                },
+                "gender": {
+                  "type": "string",
+                  "example": "Male"
+                },
+                "telephoneNumber": {
+                  "type": "string",
+                  "example": "1234567890"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "Password123"
+                }
+              },
+              "required": ["firstName", "lastName", "email", "password"]
             }
           }
+        ],
+        "responses": {
+          "201": {
+            "description": "User successfully registered",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "User successfully registered"
+                },
+                "user": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "firstName": {
+                      "type": "string",
+                      "example": "John"
+                    },
+                    "lastName": {
+                      "type": "string",
+                      "example": "Doe"
+                    },
+                    "email": {
+                      "type": "string",
+                      "example": "john.doe@example.com"
+                    }
+                  }
+                },
+                "token": {
+                  "type": "string",
+                  "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                }
+              }
+            }
+         
         }
       }
     }
   }
-  
+}
+}

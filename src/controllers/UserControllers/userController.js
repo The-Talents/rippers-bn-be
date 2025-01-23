@@ -1,4 +1,4 @@
-const { createUser } = require('../Services/UserService');
+const { createUser } = require('../../Services/UserService');
 
 const userRegistrationController = async (req, res) => {
   try {
