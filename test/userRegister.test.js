@@ -1,36 +1,37 @@
+import db from '../models/index.js';  // Import the entire db object
+const { User } = db;  // Destructure the User model from db
 
-const chai = require('chai');
-const chaiHttp = require('chai-http');
-const app = require('../src/server'); 
-const { expect } = chai;
-const { sequelize } = require('../models/index');
+import chai from 'chai';
+import chaiHttp from 'chai-http';
+import { expect } from 'chai';
+import app from '../src/server.js';
 
 chai.use(chaiHttp);
 
 describe('User Registration API Tests', () => {
   before(async () => {
-    await sequelize.sync({ force: true }); 
+    await User.sequelize.sync({ force: true });  // Sync the User model directly
   });
 
   after(async () => {
-    await sequelize.close(); 
+    await User.sequelize.close();  // Close the connection after tests
   });
 
   it('should create a new user successfully', (done) => {
     const newUser = {
-      firstName: 'keza',
-      lastName: 'kiriku',
-      email: 'tombola2@example.com',
-      birthOfDate: '1990-01-01',
-      preferredLanguage: 'English',
-      preferredCurrency: 'USD',
-      whereYouLive: 'Kigali, Rwanda',
-      role: 'Developer',
-      department: 'IT',
-      lineManager: 'Jane Smith',
-      gender: 'Male',
-      telephoneNumber: '1234567890',
-      password: 'Password123',
+      firstName: "Alice",
+      lastName: "Johnson",
+      email: "alice.johnson@example.com",
+      birthOfDate: "1985-03-22",
+      preferredLanguage: "French",
+      preferredCurrency: "EUR",
+      whereYouLive: "Paris, France",
+      role: "Product Manager",
+      department: "Marketing",
+      lineManager: "Michael Brown",
+      gender: "Female",
+      telephoneNumber: "0987654321",
+      password: "TestPassword2025"
     };
 
     chai
@@ -47,7 +48,6 @@ describe('User Registration API Tests', () => {
       });
   });
 
-  
   it('should return 400 if required fields are missing', (done) => {
     const incompleteUser = {
       firstName: 'keza',

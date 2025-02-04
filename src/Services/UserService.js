@@ -1,5 +1,7 @@
-const { User } = require('../../models');
-const { validateUserRegistration, encryptPassword, generateJwtToken } = require('../validations/userValidation');
+import { validateUserRegistration, encryptPassword, generateJwtToken } from '../validations/userValidation.js';
+import db from '../../models/index.js';
+
+const { User } = db;
 
 const createUser = async (userData) => {
   await validateUserRegistration(userData);
@@ -25,4 +27,4 @@ const createUser = async (userData) => {
   return { user: newUser, token };
 };
 
-module.exports = { createUser };
+export { createUser };

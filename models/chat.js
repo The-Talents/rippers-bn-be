@@ -1,26 +1,25 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
-module.exports = (sequelize, DataTypes) => {
+import { Model, DataTypes } from 'sequelize';
+
+export default (sequelize) => {
   class Chat extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
     static associate(models) {
-      // define association here
+      // Define associations here if needed
     }
   }
-  Chat.init({
-    message: DataTypes.TEXT,
-    receiver: DataTypes.INTEGER,
-    sender: DataTypes.INTEGER,
-    image: DataTypes.STRING
-  }, {
-    sequelize,
-    modelName: 'Chat',
-  });
+
+  Chat.init(
+    {
+      message: DataTypes.TEXT,
+      receiver: DataTypes.INTEGER,
+      sender: DataTypes.INTEGER,
+      image: DataTypes.STRING
+    },
+    {
+      sequelize,
+      modelName: 'Chat',
+    }
+  );
+
   return Chat;
 };

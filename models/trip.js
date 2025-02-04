@@ -1,8 +1,7 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
-module.exports = (sequelize, DataTypes) => {
+import { Model, DataTypes } from 'sequelize';
+
+export default (sequelize) => {
   class Trip extends Model {
     /**
      * Helper method for defining associations.
@@ -10,41 +9,41 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      // Relationship with User
+      Trip.belongsTo(models.User, {
+        foreignKey: "userId",
+        as: "user",
+      });
+
+      // Relationship with Accommodation
+      Trip.belongsTo(models.Accommodation, {
+        foreignKey: "accommodationId",
+        as: "accommodation",
+      });
     }
   }
-  Trip.init({
-    userId: DataTypes.INTEGER,
-    name: DataTypes.STRING,
-    passport: DataTypes.STRING,
-    gender: DataTypes.STRING,
-    manager: DataTypes.STRING,
-    from: DataTypes.STRING,
-    to: DataTypes.STRING,
-    dateForGoing: DataTypes.DATE,
-    dateForReturn: DataTypes.DATE,
-    reason: DataTypes.TEXT,
-    accommodationId: DataTypes.INTEGER,
-    status: DataTypes.STRING,
-    comment: DataTypes.TEXT
-  }, {
-    sequelize,
-    modelName: 'Trip',
-  });
 
-  Trip.associate = (models) => {
-    // Relationship with User
-    Trip.belongsTo(models.User, {
-      foreignKey: "userId",
-      as: "user",
-    });
+  Trip.init(
+    {
+      userId: DataTypes.INTEGER,
+      name: DataTypes.STRING,
+      passport: DataTypes.STRING,
+      gender: DataTypes.STRING,
+      manager: DataTypes.STRING,
+      from: DataTypes.STRING,
+      to: DataTypes.STRING,
+      dateForGoing: DataTypes.DATE,
+      dateForReturn: DataTypes.DATE,
+      reason: DataTypes.TEXT,
+      accommodationId: DataTypes.INTEGER,
+      status: DataTypes.STRING,
+      comment: DataTypes.TEXT
+    },
+    {
+      sequelize,
+      modelName: 'Trip',
+    }
+  );
 
-    // Relationship with Accommodation
-    Trip.belongsTo(models.Accommodation, {
-      foreignKey: "accommodationId",
-      as: "accommodation",
-    });
-  };
-  
   return Trip;
 };

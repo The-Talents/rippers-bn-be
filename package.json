@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A Node.js-Express application for BareFoot Nomad.",
   "main": "src/server.js",
-  "type": "commonjs",
+   "type": "module",
   "scripts": {
     "start": "node src/server.js",
     "dev": "nodemon src/server.js",

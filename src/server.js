@@ -1,19 +1,18 @@
-const dotenv = require('dotenv');
-const express = require('express');
-const bodyParser = require('body-parser'); // Import body-parser for JSON parsing
-const swaggerUi = require('swagger-ui-express');
-const swaggerDocument = require('../swagger.json'); // Assuming your swagger.json is located at this path
-const userRoutes = require('./routes/userRoutes'); // Import user routes
+import dotenv from 'dotenv';
+import express from 'express';
+import swaggerUi from 'swagger-ui-express';
+import swaggerDocument from '../swagger.json' assert { type: 'json' };
+import userRoutes from './routes/userRoutes.js'; // Ensure the correct extension for ES modules
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(bodyParser.json());
+app.use(express.json()); // Using Express' built-in JSON parser
 
 // Set up user routes
-app.use('/api/v1', userRoutes); 
+app.use('/api/v1', userRoutes);
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
@@ -22,4 +21,4 @@ app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
 
-module.exports = app;
+export default app;

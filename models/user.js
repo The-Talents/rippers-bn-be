@@ -1,16 +1,9 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
-module.exports = (sequelize, DataTypes) => {
+import { Model, DataTypes } from 'sequelize';
+
+export default (sequelize) => {
   class User extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
     static associate(models) {
-      // Define associations here
       User.hasMany(models.Trip, {
         foreignKey: "userId",
         as: "trips",
@@ -23,6 +16,7 @@ module.exports = (sequelize, DataTypes) => {
       });
     }
   }
+
   User.init({
     firstName: DataTypes.STRING,
     lastName: DataTypes.STRING,
@@ -34,26 +28,13 @@ module.exports = (sequelize, DataTypes) => {
     role: DataTypes.STRING,
     department: DataTypes.STRING,
     lineManager: DataTypes.STRING,
-      gender: DataTypes.STRING,
-      telephoneNumber: DataTypes.STRING
+    password: DataTypes.STRING,
+    gender: DataTypes.STRING,
+    telephoneNumber: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'User',
   });
-  
-  // User.associate = (models) => {
-  //   // Existing associations
-  //   User.hasMany(models.Trip, {
-  //     foreignKey: "userId",
-  //     as: "trips",
-  //   });
-  // };
-
-  // User.hasMany(models.Feedback, {
-  //   foreignKey: 'userId',
-  //   onDelete: 'CASCADE',
-  //   onUpdate: 'CASCADE',
-  // });
 
   return User;
 };

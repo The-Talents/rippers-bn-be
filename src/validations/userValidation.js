@@ -1,7 +1,10 @@
-const Joi = require('joi');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const { User } = require('../../models');
+// userValidation.js
+import Joi from 'joi';
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+import db from '../../models/index.js';
+
+const { User } = db;
 
 const userValidationSchema = Joi.object({
   email: Joi.string().email().required().messages({
@@ -59,13 +62,13 @@ const validateEmailExists = async (email) => {
   }
 };
 
-const encryptPassword = async (password) => {
+export const encryptPassword = async (password) => {
   const salt = await bcrypt.genSalt(10); 
   const hashedPassword = await bcrypt.hash(password, salt);
   return hashedPassword;
 };
 
-const generateJwtToken = (user) => {
+export const generateJwtToken = (user) => {
   const payload = {
     userId: user.id, 
     email: user.email,
@@ -75,12 +78,10 @@ const generateJwtToken = (user) => {
   return token;
 };
 
-const validateUserRegistration = async (userData) => {
+export const validateUserRegistration = async (userData) => {
   const { error } = userValidationSchema.validate(userData);
   if (error) {
     throw new Error(error.details[0].message);
   }
   await validateEmailExists(userData.email); 
 };
-
-module.exports = { validateUserRegistration, encryptPassword, generateJwtToken };

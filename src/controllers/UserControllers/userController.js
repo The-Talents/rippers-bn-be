@@ -1,4 +1,4 @@
-const { createUser } = require('../../Services/UserService');
+import { createUser } from '../../Services/UserService.js';
 
 const userRegistrationController = async (req, res) => {
   try {
@@ -17,4 +17,4 @@ const userRegistrationController = async (req, res) => {
   }
 };
 
-module.exports = { userRegistrationController };
+export { userRegistrationController };
