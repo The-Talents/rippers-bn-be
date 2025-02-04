@@ -1,4 +1,3 @@
-// userValidation.js
 import Joi from 'joi';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
