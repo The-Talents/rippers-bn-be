@@ -1,5 +1,8 @@
-import db from '../models/index.js';  // Import the entire db object
-const { User } = db;  // Destructure the User model from db
+// import db from '../models/index.js';  // Import the entire db object
+// const { User } = db;  // Destructure the User model from db
+
+import db from 'file:///M:/Production/eric-nomad/models/index.js';
+const { User } = db; 
 
 import chai from 'chai';
 import chaiHttp from 'chai-http';
