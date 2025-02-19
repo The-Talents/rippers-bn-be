@@ -8,7 +8,7 @@
     "start": "node src/server.js",
     "dev": "nodemon src/server.js",
     "migrate": "sequelize db:migrate",
-"test": "cross-env NODE_OPTIONS=--experimental-vm-modules nyc --reporter=text --reporter=lcov mocha --recursive --exit",
+"test": "cross-env NODE_OPTIONS=--experimental-vm-modules nyc --reporter=text --reporter=lcov mocha 'test/**/*.test.mjs' --recursive --exit",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "build": "echo 'No build step required'",
     "lint": "eslint .",
