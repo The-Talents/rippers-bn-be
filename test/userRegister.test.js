@@ -1,8 +1,8 @@
-// import db from '../models/index.js';  // Import the entire db object
-// const { User } = db;  // Destructure the User model from db
-
-import db from 'file:///M:/Production/eric-nomad/models/index.js';
-const { User } = db; 
+// import db from '../models/index.js';
+// const { User } = db; 
+import db from '../models/index.js';
+await db.sequelize.sync({ force: true });
+const { User } = db;
 
 import chai from 'chai';
 import chaiHttp from 'chai-http';
@@ -13,11 +13,11 @@ chai.use(chaiHttp);
 
 describe('User Registration API Tests', () => {
   before(async () => {
-    await User.sequelize.sync({ force: true });  // Sync the User model directly
+    await User.sequelize.sync({ force: true });  
   });
 
   after(async () => {
-    await User.sequelize.close();  // Close the connection after tests
+    await User.sequelize.close();  
   });
 
   it('should create a new user successfully', (done) => {
