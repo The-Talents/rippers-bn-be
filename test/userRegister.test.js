@@ -1,8 +1,5 @@
-// import db from '../models/index.js';
-// const { User } = db; 
 import db from '../models/index.js';
-await db.sequelize.sync({ force: true });
-const { User } = db;
+const { User } = db; 
 
 import chai from 'chai';
 import chaiHttp from 'chai-http';
@@ -13,6 +10,8 @@ chai.use(chaiHttp);
 
 describe('User Registration API Tests', () => {
   before(async () => {
+    await db.sequelize.sync({ force: true });
+
     await User.sequelize.sync({ force: true });  
   });
 
