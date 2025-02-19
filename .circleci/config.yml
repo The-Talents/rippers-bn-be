@@ -66,10 +66,6 @@ jobs:
             chmod +x node_modules/.bin/nyc
             chmod +x node_modules/.bin/cross-env
       - run:
-          name: Modify Test File
-          command: |
-            sed -i '/^await db.sequelize.sync({ force: true });/d' test/userRegister.test.js
-      - run:
           name: Run Tests
           command: npm test  
       - run:
