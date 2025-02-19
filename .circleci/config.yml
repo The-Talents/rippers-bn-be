@@ -67,7 +67,8 @@ jobs:
             chmod +x node_modules/.bin/cross-env
       - run:
           name: Run Tests
-          command: npm test  
+          command: npm test -- --experimental-vm-modules
+  
       - run:
           name: Build app
           command: npm run build  
